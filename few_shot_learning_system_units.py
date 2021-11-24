@@ -89,7 +89,7 @@ class MAMLFewShotClassifier(nn.Module):
         # print("saving at: ", file_to_save)
         if int(self.args.query_rotate)<0 or int(self.args.query_rotate)>0:
             file_to_save = self.args.experiment_name + self.phase + str(self.args.query_rotate)+ "log.csv"
-        elif float(self.args.query_scale)>=.1:
+        elif float(self.args.query_scale)>.1:
             file_to_save = self.args.experiment_name + self.phase + str(self.args.query_scale) + "Scalelog.csv"
         if (self.current_epoch == 0 and self.create_new_train_log) or \
                 (self.current_epoch == 0 and self.phase == "val" and self.create_new_val_log) \
@@ -239,9 +239,9 @@ class MAMLFewShotClassifier(nn.Module):
 
                     task_selection = False
                     if self.args.use_iter_for_ts and iteration_cur>0:
-                        if iteration_cur >= self.args.start_ts_after_iter:
+                        if iteration_cur > self.args.start_ts_after_iter:
                             task_selection = True
-                    elif int(epoch) >= int(self.args.start_task_selection):
+                    elif int(epoch) > int(self.args.start_task_selection):
                         task_selection = True
 
                     # print("task selection: ", int(epoch) <= int(self.args.start_task_selection ), iteration_cur,training_phase)

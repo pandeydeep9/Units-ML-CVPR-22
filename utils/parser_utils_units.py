@@ -86,7 +86,7 @@ def get_args():
 
     #OOD Appendix
     parser.add_argument('--query_rotate', type=float, default=0.0, help="Rotate query images (only for omniglot)")
-    parser.add_argument('--query_scale', type=float, default=1.0, help="Scale query images (only for omniglot)")
+    parser.add_argument('--query_scale', type=float, default=-1, help="Scale query images (only for omniglot)")
 
     #Fix annealing rate fix_annealing_rate
     parser.add_argument('--fix_annealing_rate', type=str, default="False", help="Whether or not to fix the annealing rate")
@@ -117,20 +117,6 @@ def get_args():
 
         print(key, args_dict[key], type(args_dict[key]))
 
-
-
-    save_dir = args.experiment_name
-    args.filepath = save_dir
-    
-    if not os.path.isdir(f"{save_dir}"):
-        os.mkdir(save_dir)
-
-    if not os.path.isdir(f"{save_dir}/args.txt"):
-
-        f = open(f"{save_dir}/args.txt", "w")
-        f.write(str(args_dict))
-        f.close()
-    
     args = Bunch(args_dict)
 
     args.use_cuda = torch.cuda.is_available()
